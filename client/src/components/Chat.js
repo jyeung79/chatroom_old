@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 
 import InfoBar from './InfoBar';
 import Input from './Input';
+import Messages from './Messages';
 
 let socket;
 
@@ -22,27 +23,32 @@ const Chat = ({ location }) => {
         setName(name);
         setRoom(room);
         
-        socket.emit('join', { name, room }, ({ error }) => {
+        socket.emit('join', { name, room }, (error) => {
             if (error) {
                 alert(error);
             }
-        }, [ENDPOINT, location.search]);
+        });
+    }, [ENDPOINT, location.search]);
+
+    useEffect(() => {
+        socket.on('message', (message) => {
+            setMessages([...messages, message]);
+        });
+
+        {/*socket.on('roomData', ({ users }) => {
+            setUsers(users);
+        })*/}
 
         return () => {
             socket.emit('disconnect');
 
             socket.off();
         }
-    }, [ENDPOINT, location.search])
-
-    useEffect(() => {
-        socket.on('message', (message) => {
-            setMessages([...messages, message]);
-        })
     }, [messages]);
 
     // function for sending messages
     const sendMessage = (event) => {
+        event.preventDefault();
 
         if (message) {
             socket.emit('sendMessage', message, () => setMessage(''));
@@ -55,12 +61,14 @@ const Chat = ({ location }) => {
         <div className="outerContainer">
             <div className="container">
                 <InfoBar room={room} />
+                <Messages messages={messages} name={name}/>
                 <Input
                     message={message} 
                     setMessage={setMessage}
                     sendMessage={sendMessage}
                 />
             </div>
+            {/*<TextContainer users={users} /> */}
         </div>
     )
 }
