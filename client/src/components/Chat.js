@@ -5,12 +5,14 @@ import io from 'socket.io-client';
 import InfoBar from './InfoBar';
 import Input from './Input';
 import Messages from './Messages';
+import TextContainer from './TextContainer';
 
 let socket;
 
 const Chat = ({ location }) => {
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');
+    const [users, setUsers] = useState('');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const ENDPOINT = 'localhost:5000'
@@ -35,9 +37,9 @@ const Chat = ({ location }) => {
             setMessages([...messages, message]);
         });
 
-        {/*socket.on('roomData', ({ users }) => {
+        socket.on('roomData', ({ users }) => {
             setUsers(users);
-        })*/}
+        });
 
         return () => {
             socket.emit('disconnect');
@@ -53,7 +55,7 @@ const Chat = ({ location }) => {
         if (message) {
             socket.emit('sendMessage', message, () => setMessage(''));
         }
-    }
+    };
 
     console.log(message, messages);
 
@@ -68,7 +70,7 @@ const Chat = ({ location }) => {
                     sendMessage={sendMessage}
                 />
             </div>
-            {/*<TextContainer users={users} /> */}
+            <TextContainer users={users} /> 
         </div>
     )
 }
