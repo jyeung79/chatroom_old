@@ -3,12 +3,13 @@ import React from 'react';
 import onlineIcon from '../icons/onlineIcon.png';
 
 import '../assets/main.css';
+import chatIcon from '../icons/chat.svg';
 
 const TextContainer = ({ users }) => (
   <div className="textContainer">
     <div>
-      <h1>Realtime Chat Application <span role="img" aria-label="emoji">💬</span></h1>
-      <h2>Created with React, Express, Node and Socket.IO <span role="img" aria-label="emoji">❤️</span></h2>
+      <h1><img src={chatIcon} style={{width:"35px", height:"35px"}}/> Chatroom - Realtime Chat Application </h1>
+      <h2>Created with React, Express, NodeJS and Socket.IO </h2>
       <h2>Try it out right now! <span role="img" aria-label="emoji">⬅️</span></h2>
     </div>
     {

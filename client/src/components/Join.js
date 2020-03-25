@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import '../assets/main.css';
+import chatIcon from '../icons/chat.svg';
 
 const Join = () => {
     const [name, setName] = useState('');
@@ -10,6 +11,7 @@ const Join = () => {
     return (
         <div className="joinOuterContainer">
             <div className="joinInnerContainer">
+                <img src={chatIcon} style={{width:"100px", height:"100px"}} />
                 <h1 className="heading">Join</h1>
                 <div>
                     <input placeholder="Name"
