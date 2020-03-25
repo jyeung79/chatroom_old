@@ -57,6 +57,11 @@ const Chat = ({ location }) => {
         }
     };
 
+    const messageHandler = (event) => {
+        sendMessage(event);
+        setMessage('');
+    }
+
     console.log(message, messages);
 
     return (
@@ -67,7 +72,7 @@ const Chat = ({ location }) => {
                 <Input
                     message={message} 
                     setMessage={setMessage}
-                    sendMessage={sendMessage}
+                    messageHandler={messageHandler}
                 />
             </div>
             <TextContainer users={users} /> 
